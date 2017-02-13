@@ -7,11 +7,14 @@
 int main(void) {
 	
 	char *history[100];
+	char *username;
+	username = getenv("USER");
 	
 	int contador = 1;
 	while(contador){
-	printf("%s@shell2.0$ ", getenv("USER"));
+	printf("%s@shell2.0$ ", username);
     char *name[] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+    char *name2[] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
     char path[30];
     strcpy(path,"/bin/");
     char *env[] = {
@@ -43,17 +46,15 @@ int main(void) {
     history[contador] = name[0];
     pid_t pid = fork();	
    char *track= "track";
-   if (strcmp(name[0], track) == 0 && pid ==0){
-	  /* int i = 1;
- 
-       for(;i<sizeof(history);i++){
-		    printf("%s. %s", i, history[i]);   
-	   }
-       */
-        int i;
+   if (strcmp(name[0], track) == 0 && pid == 0){
+	 
+       int i;
 		for (i=1;i < sizeof(history) ;i++) {
 			if (history[i] != NULL || history[i] > 0 ){
-			    printf("%s\n",history[i]);
+				
+			    printf("%d. %s\n", i, history[i]);
+			    if (strcmp(history[i], track) == 0)
+				{break;}
 			}    
 		}
 
