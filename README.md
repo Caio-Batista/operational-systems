@@ -17,3 +17,15 @@ Labs of OS classes
      Z                           | defunct / zumbi, terminado mas não colhido por seu pai
      T                           | interrompido, seja por um sinal de controle de ou porque ele está sendo rastreado
 
+
+* Estrutura que armazena os file descriptors
+ ```C
+   struct fdtable {
+	 unsigned int max_fds;   /* numero maximo de fd no SO */
+	 struct file ** fd;      /* current fd array */
+	 fd_set *close_on_exec;  /* conjunto dos fd que deram excecao */ 
+	 fd_set *open_fds;       /* conjunto dos fd de arquivos abertos */
+	 struct rcu_head rcu;     
+	 struct fdtable *next;    /* apontador para continuacao em outra tabela
+   };
+   ``` 
