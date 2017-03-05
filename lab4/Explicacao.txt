@@ -1,0 +1,3 @@
+Utilzando o escalonamento fica bem mais preciso utilizando N=4(nº CPU).
+Entre o FIFO e o RR não há uma diferença muito significativa, a diferença que eu pude observar foi que o average delay do RR foi um pouco maior do que a do FIFO. Podemos observar também que a política 1(FIFO) tem os resultados mais concentrados enquanto na politica 2(RR) os resultados são mais dispersos.
+
