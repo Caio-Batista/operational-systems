@@ -1,7 +1,9 @@
+import random
 class PhysicalMemory:
+	
   ALGORITHM_AGING_NBITS = 8
 
-  def __init__(self):
+  def __init__(self,algorithm):
     assert algorithm in {"fifo", "nru", "aging", "second-chance"}
     self.algorithm = algorithm
     if self.algorithm == "fifo":
@@ -10,7 +12,7 @@ class PhysicalMemory:
 		self.mem = {}
     if self.algorithm == "nru":
 		self.mem = {}	
-    if self.algorith == "second-chance":
+    if self.algorithm == "second-chance":
 		self.frames = []
 		self.acessados = []
 		
@@ -24,7 +26,7 @@ class PhysicalMemory:
     if self.algorithm == "fifo":
 	  self.frames.insert(0,frameId)
     if self.algorithm == "nru":
-	  self.mem[frame_id] = ["data", 1, 1]  
+	  self.mem[frameId] = ["data", 1, 1]  
     if self.algorithm == "aging": 
 	  self.mem[frameId] = Element("data1")
     if self.algorithm == "second-chance":
@@ -100,16 +102,16 @@ class PhysicalMemory:
         return self.mem[frameId].read()
 
     if self.algorithm == "nru":
-      if self.contains(frame_id):
-		self.mem[frame_id][1] = 1
+      if self.contains(frameId):
+		self.mem[frameId][1] = 1
 			
-		if mode:
-		  self.mem[frame_id][0] = "data2"
-		  self.mem[frame_id][2] = 1 
+		if isWrite:
+		  self.mem[frameId][0] = "data2"
+		  self.mem[frameId][2] = 1 
 		  return None
 		else:
-		  self.mem[frame_id][2] = 0 
-		  return self.mem[frame_id][0]
+		  self.mem[frameId][2] = 0 
+		  return self.mem[frameId][0]
       return None
     if self.algorithm == "second-chance":
 		index = self.frames.index(frameId)	
@@ -117,6 +119,9 @@ class PhysicalMemory:
 
     else: pass  		
 
+  def get_all(self, ref, mod):
+    return [i for i in self.mem if self.mem[i][1:] == [ref,mod]]
+    
 class Element:
 
   def __init__(self, data):
